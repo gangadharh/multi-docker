@@ -1,0 +1,16 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t ghariharan/react-test -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run -e CI=true ghariharan/react-test npm test -- --coverage
+
+after_success:
+  - docker build -t ghariharan/multi-client ./client
+  - docker build -t ghariharan/multi-ngnix ./nginx
+  - docker build -t ghariharan/multi-server ./server
+  - docker build -t ghariharan/multi-worker ./worker
+
