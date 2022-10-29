@@ -13,4 +13,8 @@ after_success:
   - docker build -t ghariharan/multi-ngnix ./nginx
   - docker build -t ghariharan/multi-server ./server
   - docker build -t ghariharan/multi-worker ./worker
-
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  - docker push ghariharan/multi-client
+  - docker push ghariharan/multi-ngnix
+  - docker push ghariharan/multi-server
+  - docker push ghariharan/multi-worker
