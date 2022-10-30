@@ -18,3 +18,15 @@ after_success:
   - docker push ghariharan/multi-ngnix
   - docker push ghariharan/multi-server
   - docker push ghariharan/multi-worker
+
+deploy:
+  provider: elasticbeanstalk
+  region: "us-west-2"
+  app: "multi-docker"
+  env: "Multidocker-env"
+  bucket_name: "elasticbeanstalk-us-west-2-726046989903"
+  bucket_path: "multi-docker"
+  on:
+    branch: main
+  access_key_id: "$AWS_ACCESS_KEY"
+  secret_access_key: "$AWS_SECRET_KEY"
